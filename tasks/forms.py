@@ -8,4 +8,4 @@ User = get_user_model()
 class WorkerRegistrationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = UserCreationForm.Meta.fields + ("position", "first_name", "last_name", "email")
+        fields = UserCreationForm.Meta.fields + ("position",)
