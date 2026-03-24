@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "widget_tweaks",
     "tasks",
 ]
 
@@ -65,6 +66,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "tasks.context_processors.cfg_assets_root",
             ],
         },
     },
@@ -122,10 +124,14 @@ STATIC_URL = "static/"
 
 STATICFILES_DIRS = (BASE_DIR / "static",)
 
+ASSETS_ROOT = "/static/assets"
+
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-LOGIN_REDIRECT_URL = "tasks:custom-index"
+LOGIN_REDIRECT_URL = "tasks:index"
 
-LOGOUT_REDIRECT_URL = "login"
+LOGOUT_REDIRECT_URL = "/accounts/login/"
 
-LOGIN_URL = "login"
+LOGIN_URL = "/accounts/login/"
+
+
