@@ -93,5 +93,5 @@ class TaskTypeListView(LoginRequiredMixin, generic.ListView):
 class TaskCreateView(LoginRequiredMixin, generic.CreateView):
     pass
 
-class TaskTypeCreateVIew(LoginRequiredMixin, generic.CreateView):
+class TaskTypeCreateView(LoginRequiredMixin, generic.CreateView):
     pass
