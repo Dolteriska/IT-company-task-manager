@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .forms import WorkerRegistrationForm
+from .forms import WorkerRegistrationForm, WorkerSearchForm, TaskSearchForm, TaskTypeSearchForm
 from .models import Worker, Task, TaskType
 
 @login_required()
@@ -35,3 +35,63 @@ def register_view(request):
     else:
         form = WorkerRegistrationForm
     return render(request, 'accounts/register.html', {'form': form})
+
+class WorkerListView(LoginRequiredMixin, generic.ListView):
+    model = Worker
+    paginate_by = 5
+
+    def get_context_data(
+            self, **kwargs,
+    ):
+        context = super().get_context_data(**kwargs)
+        context["search_form"] = WorkerSearchForm(self.request.GET or None)
+        return context
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        form = WorkerSearchForm(self.request.GET or None)
+        if form.is_valid():
+            qs = qs.filter(username__icontains=form.cleaned_data["username"])
+        return qs
+
+class TaskListView(LoginRequiredMixin, generic.ListView):
+    model = Task
+    paginate_by = 10
+
+    def get_context_data(
+            self, **kwargs,
+    ):
+        context = super().get_context_data(**kwargs)
+        context["search_form"] = TaskSearchForm(self.request.GET or None)
+        return context
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        form = TaskSearchForm(self.request.GET or None)
+        if form.is_valid():
+            qs = qs.filter(model__icontains=form.cleaned_data["name"])
+        return qs
+
+class TaskTypeListView(LoginRequiredMixin, generic.ListView):
+    model = TaskType
+    paginate_by = 5
+
+    def get_context_data(
+            self, **kwargs,
+    ):
+        context = super().get_context_data(**kwargs)
+        context["search_form"] = TaskTypeSearchForm(self.request.GET or None)
+        return context
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        form = TaskSearchForm(self.request.GET or None)
+        if form.is_valid():
+            qs = qs.filter(model__icontains=form.cleaned_data["name"])
+        return qs
+
+class TaskCreateView(LoginRequiredMixin, generic.CreateView):
+    pass
+
+class TaskTypeCreateVIew(LoginRequiredMixin, generic.CreateView):
+    pass
