@@ -5,6 +5,7 @@ from .views import (
     register_view,
     WorkerListView,
     WorkerDetailView,
+    TaskCreateView,
     TaskListView,
 
 )
@@ -17,6 +18,7 @@ urlpatterns = [
     path("accounts/", include("django.contrib.auth.urls")),
     path("workers/", WorkerListView.as_view(), name="worker-list"),
     path("workers/<int:pk>/", WorkerDetailView.as_view(), name="worker-detail"),
+    path("tasks/create/", TaskCreateView.as_view(), name="task-create"),
     path("tasks/", TaskListView.as_view(), name="task-list"),
 
                ]
