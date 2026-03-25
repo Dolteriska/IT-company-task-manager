@@ -1,0 +1,89 @@
+{% extends 'layouts/base-presentation.html' %}
+
+{% block content %}
+<header class="bg-gradient-primary">
+  <div class="page-header min-vh-40 relative pt-10 pb-9" style="background-image: url('{{ ASSETS_ROOT }}/img/curved-images/curved.jpg')">
+    <span class="mask bg-gradient-primary opacity-4"></span>
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-lg-7 mx-auto">
+          <h1 class="text-white">{{ worker.first_name }} {{ worker.last_name }}</h1>
+          <p class="text-white opacity-8">{{ worker.username }} | {{ worker.position.name|default:"No position assigned" }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6 position-relative z-index-2">
+  <div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-md-4">
+        <h6 class="text-uppercase text-body text-xs font-weight-bolder">Account Information</h6>
+        <ul class="list-group">
+          <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; {{ worker.email }}</li>
+          <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Position:</strong> &nbsp;
+            <span class="badge badge-sm bg-gradient-info">{{ worker.position.name|default:"Not set" }}</span>
+          </li>
+          <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Joined:</strong> &nbsp; {{ worker.date_joined|date:"F d, Y" }}</li>
+          <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Status:</strong> &nbsp;
+            {% if worker.is_active %}
+              <span class="text-success">Active</span>
+            {% else %}
+              <span class="text-danger">Inactive</span>
+            {% endif %}
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-md-8">
+        <h6 class="text-uppercase text-body text-xs font-weight-bolder">
+          {% if user.pk == worker.pk %}
+            My Tasks ({{ worker.tasks.count }})
+            {% else %}
+            Active Tasks ({{ worker.tasks.count }})
+          {% endif %}
+          </h6>
+        <div class="table-responsive p-0">
+          <table class="table align-items-center mb-0">
+            <thead>
+              <tr>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Task Name</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Deadline</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for task in worker.tasks.all %}
+              <tr>
+                <td>
+                  <p class="text-sm font-weight-bold mb-0 px-3">{{ task.name }}</p>
+                </td>
+                <td class="align-middle text-center">
+                  <span class="text-xs {% if not task.is_completed and task.deadline|date:'Ymd' <= now|date:'Ymd'|add:3 %}text-danger font-weight-bold{% endif %}">
+                    {{ task.deadline|date:"M d, Y" }}
+                  </span>
+                </td>
+                <td class="align-middle text-center">
+                  {% if task.is_completed %}
+                    <span class="badge badge-sm bg-gradient-success">Success</span>
+                  {% elif task.deadline|date:'Ymd' < now|date:'Ymd' %}
+                    <span class="badge badge-sm bg-gradient-danger">Failed</span>
+                  {% else %}
+                    <span class="badge badge-sm bg-gradient-secondary">In Progress</span>
+                  {% endif %}
+                </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="3" class="text-center py-4 text-xs text-secondary">This worker has no tasks assigned.</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
