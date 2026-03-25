@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "widget_tweaks",
+    "crispy_forms",
+    "crispy_bootstrap4",
     "tasks",
 ]
 
@@ -133,5 +135,7 @@ LOGIN_REDIRECT_URL = "tasks:index"
 LOGOUT_REDIRECT_URL = "/accounts/login/"
 
 LOGIN_URL = "/accounts/login/"
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
