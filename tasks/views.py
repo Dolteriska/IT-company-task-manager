@@ -6,7 +6,13 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .forms import WorkerRegistrationForm, WorkerSearchForm, TaskSearchForm, TaskTypeSearchForm
+from .forms import (WorkerRegistrationForm,
+                    WorkerSearchForm,
+                    TaskSearchForm,
+                    TaskTypeSearchForm,
+                    TaskCreationForm,
+                    WorkerCreationForm,
+                    )
 from .models import Worker, Task, TaskType
 
 @login_required()
@@ -97,9 +103,20 @@ class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
     queryset = Worker.objects.all().select_related("position").prefetch_related("tasks")
 
 
+class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Worker
+    form_class = WorkerCreationForm
+
+    def test_func(self):
+        user = self.request.user
+        return user.is_superuser or (user.position and user.position.can_create_worker)
+
 
 class TaskCreateView(LoginRequiredMixin, generic.CreateView):
-    pass
+    model = Task
+    template_name = "tasks/task_create.html"
+    form_class = TaskCreationForm
+    success_url = reverse_lazy("tasks:task-list")
 
 class TaskTypeCreateView(LoginRequiredMixin, generic.CreateView):
     pass
