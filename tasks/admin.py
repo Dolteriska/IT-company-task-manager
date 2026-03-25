@@ -31,5 +31,5 @@ class TaskAdmin(admin.ModelAdmin):
 
 @admin.register(Position)
 class PositionAdmin(admin.ModelAdmin):
-    list_display = ["name"]
+    list_display = ("name", "can_create_worker", "can_edit_tasks")
     search_fields = ["name"]
