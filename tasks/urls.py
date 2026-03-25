@@ -4,6 +4,7 @@ from .views import (
     index,
     register_view,
     WorkerListView,
+    WorkerDetailView,
     TaskListView,
 
 )
@@ -15,7 +16,8 @@ urlpatterns = [
     path("accounts/login/", LoginView.as_view(template_name="accounts/login.html"), name="login"),
     path("accounts/", include("django.contrib.auth.urls")),
     path("workers/", WorkerListView.as_view(), name="worker-list"),
-    path("tasks/", TaskListView.as_view(), name="task-list")
+    path("workers/<int:pk>/", WorkerDetailView.as_view(), name="worker-detail"),
+    path("tasks/", TaskListView.as_view(), name="task-list"),
 
                ]
 
