@@ -90,6 +90,14 @@ class TaskTypeListView(LoginRequiredMixin, generic.ListView):
             qs = qs.filter(model__icontains=form.cleaned_data["name"])
         return qs
 
+class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Worker
+    context_object_name = "worker"
+    template_name = "tasks/worker_detail.html"
+    queryset = Worker.objects.all().select_related("position").prefetch_related("tasks")
+
+
+
 class TaskCreateView(LoginRequiredMixin, generic.CreateView):
     pass
 
