@@ -37,7 +37,13 @@
       </div>
 
       <div class="col-md-8">
-        <h6 class="text-uppercase text-body text-xs font-weight-bolder">Active Tasks ({{ worker.tasks.count }})</h6>
+        <h6 class="text-uppercase text-body text-xs font-weight-bolder">
+          {% if user.pk == worker.pk %}
+            My Tasks ({{ worker.tasks.count }})
+            {% else %}
+            Active Tasks ({{ worker.tasks.count }})
+          {% endif %}
+          </h6>
         <div class="table-responsive p-0">
           <table class="table align-items-center mb-0">
             <thead>
