@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 
+from tasks.models import Task
 User = get_user_model()
 
 class WorkerRegistrationForm(UserCreationForm):
@@ -45,3 +46,33 @@ class TaskTypeSearchForm(forms.Form):
                    }
         )
     )
+
+
+class TaskCreationForm(forms.ModelForm):
+    assignees = forms.ModelMultipleChoiceField(
+        queryset=get_user_model().objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+    )
+    class Meta:
+        model = Task
+        fields = "__all__"
+        widgets = {
+            'deadline': forms.DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'}),
+        }
+
+
+class WorkerUpdateForm(forms.ModelForm):
+    class Meta:
+        model = get_user_model()
+        fields = "__all__"
+
+
+class WorkerCreationForm:
+    class Meta(UserCreationForm.Meta):
+        model = get_user_model()
+        fields = UserCreationForm.Meta.fields + (
+            "position",
+            "first_name",
+            "last_name",
+        )
