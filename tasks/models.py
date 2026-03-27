@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils import timezone
 
 
 class Position(models.Model):
@@ -22,6 +23,7 @@ class Worker(AbstractUser):
         blank=True,
         related_name="workers",
     )
+    last_seen = models.DateTimeField(null=True, blank=True)
 
     class Meta:
         verbose_name = "worker"
@@ -38,6 +40,11 @@ class Worker(AbstractUser):
             f" {self.last_name})"
             f"{position}"
         )
+
+    def is_online(self):
+        if self.last_seen:
+            return self.last_seen > timezone.now() - timezone.timedelta(minutes=5)
+        return False
 
 
 class Priority(models.IntegerChoices):

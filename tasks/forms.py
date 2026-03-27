@@ -65,10 +65,18 @@ class TaskCreationForm(forms.ModelForm):
 class WorkerUpdateForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
-        fields = "__all__"
+        fields = ("username", "first_name", "last_name", "email", "position")
+
+    def __init__(self, *args, **kwargs):
+        super(WorkerUpdateForm, self).__init__(*args, **kwargs)
+        optional_fields = ["first_name", "last_name", "email", "position"]
+
+        for field in optional_fields:
+            if field in self.fields:
+                self.fields[field].required = False
 
 
-class WorkerCreationForm:
+class WorkerCreationForm(forms.ModelForm):
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
         fields = UserCreationForm.Meta.fields + (

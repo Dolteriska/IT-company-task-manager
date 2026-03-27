@@ -45,10 +45,14 @@
                 <tbody>
                   {% for task in task_list %}
                   <tr>
-                    <td>
-                      <div class="d-flex flex-column align-items-center justify-content-center px-3 py-1 text-center">
-                        <h6 class="mb-0 text-sm">{{ task.name }}</h6>
-                        <p class="text-xs text-secondary mb-0">{{ task.description|truncatechars:30 }}</p>
+                    <td class="align-middle" style="height: 1px;">
+                      <div class="d-flex align-items-center justify-content-center h-100 w-100">
+                        <div class="d-flex flex-column justify-content-center text-center">
+                          <h6 class="mb-0 text-sm">{{ task.name }}</h6>
+                          <p class="text-xs text-secondary mb-0">
+                            {{ task.description|truncatechars:40|default:"no description" }}
+                          </p>
+                        </div>
                       </div>
                     </td>
                     <td class="align-middle text-center">
@@ -63,8 +67,11 @@
                         <span class="badge badge-sm bg-gradient-secondary">In Progress</span>
                       {% endif %}
                     </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">{{ task.priority }} ({{ task.get_priority_display }})</span>
+                    <td class="align-middle text-center text-sm">
+                      <span class="text-xs font-weight-bold">
+                        <i class="fa fa-circle {% if task.priority == 4 %}text-danger{% else %}text-info{% endif %} text-xxs me-1"></i>
+                        {{ task.get_priority_display }}
+                      </span>
                     </td>
                     <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold">{{ task.task_type }}</span>
@@ -95,7 +102,6 @@
                                See more
                             </a>
                           {% endif %}
-
                         {% empty %}
                           <span class="text-secondary opacity-7">No one</span>
                         {% endfor %}
@@ -115,6 +121,7 @@
                 </tbody>
               </table>
             </div>
+            {% include "includes/pagination.html" %}
           </div>
         </div>
       </div>
