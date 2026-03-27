@@ -27,10 +27,10 @@
           </li>
           <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Joined:</strong> &nbsp; {{ worker.date_joined|date:"F d, Y" }}</li>
           <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Status:</strong> &nbsp;
-            {% if worker.is_active %}
-              <span class="text-success">Active</span>
+            {% if worker.is_online %}
+              <span class="badge badge-sm bg-gradient-success">Online</span>
             {% else %}
-              <span class="text-danger">Inactive</span>
+              <span class="badge badge-sm bg-gradient-secondary opacity-6">Offline</span>
             {% endif %}
           </li>
         </ul>
