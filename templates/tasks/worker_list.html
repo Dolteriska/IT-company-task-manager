@@ -39,7 +39,10 @@
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Username</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Position</th>
-                    <th class="text-secondary opacity-7"></th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                    {% if user.is_superuser or user.position.can_create_worker %}
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
+                    {% endif %}
                   </tr>
                 </thead>
 
@@ -51,7 +54,7 @@
                       <div class="d-flex flex-column justify-content-center">
                         <h6 class="mb-0 text-sm">
                           <a href="{% url 'tasks:worker-detail' pk=worker.pk %}" class="text-inherit">
-                            {{ worker.username }}
+                            {{ worker.username }} ({{ worker.first_name  }} {{ worker.last_name }})
                             </a>
                           </h6>
                         </div>
@@ -64,14 +67,27 @@
                       <span class="badge badge-sm bg-gradient-info">
                         {{ worker.position|default:"Not set" }}
                       </span>
-                    </td>
-                    <td class="align-middle">
-                      {% if user.pk == worker.pk or user.position.can_create_worker or user.is_superuser %}
-                      <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                    <td class="align-middle text-center">
+                    <div class="mb-2">
+                      {% if worker.is_online %}
+                        <span class="badge badge-sm bg-gradient-success">Online</span>
+                      {% else %}
+                        <span class="badge badge-sm bg-gradient-secondary opacity-6">Offline</span>
+                      {% endif %}
+                    </div>
+                  </td>
+                  <td class="align-middle text-center">
+                    <p class="text-xs font-weight-bold mb-0">
+                      {% if user.is_superuser or user.position.can_create_worker %}
+                      <a href="{% url 'tasks:worker-update' pk=worker.pk %}"
+                         class="text-secondary font-weight-bold text-xs"
+                         data-toggle="tooltip"
+                         data-original-title="Edit user">
                         Edit
-                        {% endif %}
                       </a>
-                    </td>
+                    {% endif %}
+                    </p>
+                  </td>
                   </tr>
                   {% empty %}
                   <tr>
@@ -83,10 +99,10 @@
                   {% endfor %}
                 </tbody>
               </table>
-            </div>
+             </div>
+            {% include "includes/pagination.html" %}
           </div>
         </div>
-
       </div>
     </div>
   </div>
