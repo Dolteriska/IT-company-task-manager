@@ -5,6 +5,20 @@
 {% block body_class %} bg-gray-100 {% endblock body_class %}
 
 {% block content %}
+<style>
+  .task-title-link {
+    transition: all 0.2s ease-in-out !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+    display: inline-block;
+  }
+  a.task-title-link:hover {
+    color: #cb0c9f !important;
+    text-decoration: underline !important;
+    transform: scale(1.02) translateX(5px);
+  }
+</style>
+
 <header class="bg-gradient-primary">
   <div class="page-header min-vh-40 relative pt-10 pb-9" style="background-image: url('{{ ASSETS_ROOT }}/img/curved-images/curved.jpg')">
     <span class="mask bg-gradient-primary opacity-4"></span>
@@ -33,35 +47,35 @@
               <table class="table align-items-center mb-0">
                 <thead>
                   <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Type Name</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Total Tasks</th>
-                    <th class="text-secondary opacity-7"></th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4">Type Name</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Tasks</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Edit</th>
                   </tr>
                 </thead>
                 <tbody>
                   {% for type in task_type_list %}
                   <tr>
-                    <td>
-                      <div class="d-flex px-3 py-1">
+                    <td class="align-middle">
+                      <div class="d-flex px-4 py-1">
                         <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{ type.name }}</h6>
+                          <h6 class="mb-0 text-sm">
+                            <a href="{% url 'tasks:task-type-update' pk=type.pk %}" class="text-dark task-title-link">
+                              {{ type.name }}
+                            </a>
+                          </h6>
                         </div>
                       </div>
                     </td>
                     <td class="align-middle text-center text-sm">
                       <span class="badge badge-sm bg-gradient-info">
-                        {{ type.tasks_count|default:0 }} tasks
+                        {{ type.tasks.count }} tasks
                       </span>
                     </td>
-                    <td class="align-middle text-right px-4">
-                      {% if user.is_superuser or user.position.can_create_worker %}
+                    <td class="align-middle text-center">
                       <a href="{% url 'tasks:task-type-update' pk=type.pk %}"
-                         class="text-secondary font-weight-bold text-xs"
-                         data-toggle="tooltip"
-                         data-original-title="Edit user">
+                         class="text-secondary font-weight-bold text-xs">
                         Edit
                       </a>
-                      {% endif %}
                     </td>
                   </tr>
                   {% empty %}
