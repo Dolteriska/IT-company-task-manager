@@ -78,7 +78,7 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        username = self.request.GET.get("username")  # Берем напрямую из GET
+        username = self.request.GET.get("username")
         if username:
             return queryset.filter(username__icontains=username)
         return queryset
