@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import (
+from tasks.views import (
     index,
     register_view,
     CustomLoginView,
@@ -18,7 +18,8 @@ from .views import (
     PositionCreateView,
     PositionListView,
     PositionUpdateView,
-    PositionDeleteView, WorkerDeleteView,
+    PositionDeleteView,
+    WorkerDeleteView,
 )
 
 urlpatterns = [
