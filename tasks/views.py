@@ -159,7 +159,7 @@ class WorkerUpdateView(LoginRequiredMixin,
 
     def get_success_url(self):
         return reverse_lazy(
-            "tasks:worker-detail", kwargs={"pk": self.object.pk})
+            "tasks:worker-list", kwargs={"pk": self.object.pk})
 
 
 class TaskCreateView(LoginRequiredMixin, generic.CreateView):
