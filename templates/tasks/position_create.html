@@ -1,0 +1,42 @@
+{% extends 'layouts/base-presentation.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<header class="bg-gradient-primary">
+  <div class="page-header min-vh-40 relative pt-10 pb-9" style="background-image: url('{{ ASSETS_ROOT }}/img/curved-images/curved.jpg')">
+    <span class="mask bg-gradient-primary opacity-4"></span>
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-lg-7 mx-auto">
+          <h1 class="text-white">Create New Position</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6 position-relative z-index-2">
+  <div class="container py-4">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <form action="" method="post" novalidate>
+          {% csrf_token %}
+
+          <div class="row">
+            <div class="col-md-12">
+              {{ form.name|as_crispy_field }}
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-md-12 d-flex justify-content-between">
+              <a href="{% url 'tasks:position-list' %}" class="btn btn-light mb-0">Cancel</a>
+              <button type="submit" class="btn bg-gradient-primary mb-0">Create Position</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

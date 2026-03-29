@@ -1,0 +1,119 @@
+{% extends 'layouts/base-presentation.html' %}
+
+{% block title %} Task Types {% endblock title %}
+
+{% block body_class %} bg-gray-100 {% endblock body_class %}
+
+{% block content %}
+<style>
+  .task-title-link {
+    transition: all 0.2s ease-in-out !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+    display: inline-block;
+  }
+  a.task-title-link:hover {
+    color: #cb0c9f !important;
+    text-decoration: underline !important;
+    transform: scale(1.02) translateX(5px);
+  }
+</style>
+
+<header class="bg-gradient-primary">
+  <div class="page-header min-vh-40 relative pt-10 pb-9" style="background-image: url('{{ ASSETS_ROOT }}/img/curved-images/curved.jpg')">
+    <span class="mask bg-gradient-primary opacity-4"></span>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-7 text-center mx-auto">
+          <h1 class="text-white">Positions</h1>
+          <p class="lead text-white opacity-8">Manage positions of your team!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6 position-relative z-index-2">
+  <div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-12">
+        <div class="card-header pb-0 px-3 border-0">
+  <div class="row align-items-center">
+    <div class="col-12 col-md-4">
+      <h6 class="mb-0">Tasks Table</h6>
+    </div>
+    <div class="col-12 col-md-8 d-flex justify-content-md-end justify-content-start mt-3 mt-md-0">
+      <form method="get" class="me-3">
+        <div class="input-group input-group-outline flex-nowrap">
+          <span class="input-group-text text-body">
+            <i class="fas fa-search" aria-hidden="true"></i>
+          </span>
+          <input type="text"
+                 name="name"
+                 class="form-control form-control-sm"
+                 placeholder="Search position..."
+                 value="{{ request.GET.name|default:'' }}">
+          <button type="submit" class="btn bg-gradient-primary btn-sm mb-0">Search</button>
+        </div>
+      </form>
+            {% if user.is_superuser or user.can_create_positions %}
+            <a href="{% url 'tasks:position-create' %}" class="btn bg-gradient-dark btn-sm mb-0">Add New Position</a>
+            {% endif %}
+    </div>
+  </div>
+          <div class="card-body px-0 pt-3 pb-2">
+            <div class="table-responsive p-0">
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4">Position</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Positions</th>
+                    {% if user.is_superuser or user.can_create_positions %}
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Edit</th>
+                    {% endif %}
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for position in position_list %}
+                  <tr>
+                    <td class="align-middle">
+                      <div class="d-flex px-4 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">
+                              {{ position.name }}
+                          </h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <span class="badge badge-sm bg-gradient-info">
+                        {{ position.workers.count }} workers
+                      </span>
+                      {% if user.is_superuser or user.can_create_positions %}
+                    </td>
+                    <td class="align-middle text-center">
+                      <a href="{% url 'tasks:position-update' pk=position.pk %}"
+                         class="text-secondary font-weight-bold text-xs">
+                        Edit
+                      </a>
+                    </td>
+                  {% endif %}
+                  </tr>
+                  {% empty %}
+                  <tr>
+                    <td colspan="3" class="text-center py-5">
+                      <p class="text-secondary text-sm">No positions found.</p>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            {% include "includes/pagination.html" %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
