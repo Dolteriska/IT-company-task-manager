@@ -28,6 +28,11 @@
                 </a>
               </li>
             <li class="nav-item mx-2">
+              <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" href="/positions/">
+                Positions
+              </a>
+            </li>
+            <li class="nav-item mx-2">
               <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" href="/task_types/">
                 Task types
               </a>
@@ -44,6 +49,9 @@
                     <h6 class="dropdown-header text-dark font-weight-bolder px-0">Hello, {{ user.username }}!</h6>
                     <form action="{% url 'tasks:worker-detail' pk=user.pk %}" method="get" style="display:inline;">
                     <button type="submit" class="dropdown-item border-radius-md">My account</button>
+                    </form>
+                    <form action="{% url 'tasks:worker-update' pk=user.pk %}" method="get" style="display:inline;">
+                    <button type="submit" class="dropdown-item border-radius-md">Settings</button>
                     </form>
                     <form action="{% url 'tasks:logout' %}" method="post" style="display:inline;">
                         {% csrf_token %}
