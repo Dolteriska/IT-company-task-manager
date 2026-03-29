@@ -6,7 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.views import LoginView
 from django.db.models import Count
 
-from .forms import (
+from tasks.forms import (
     WorkerRegistrationForm,
     WorkerSearchForm,
     TaskSearchForm,
@@ -16,7 +16,7 @@ from .forms import (
     TaskUpdateForm,
     PositionSearchForm,
 )
-from .models import Worker, Task, TaskType, Position
+from tasks.models import Worker, Task, TaskType, Position
 
 
 @login_required()

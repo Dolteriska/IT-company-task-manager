@@ -1,5 +1,5 @@
 from django.utils import timezone
-from .models import Worker
+from tasks.models import Worker
 
 
 class UpdateLastSeenMiddleware:
