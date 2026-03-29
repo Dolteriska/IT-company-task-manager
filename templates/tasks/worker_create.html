@@ -2,6 +2,8 @@
 {% load crispy_forms_filters %}
 {% load crispy_forms_tags %}
 
+{% block title %} Create Worker {% endblock title %}
+
 {% block content %}
 <header class="bg-gradient-primary">
   <div class="page-header min-vh-40 relative pt-10 pb-9" style="background-image: url('{{ ASSETS_ROOT }}/img/curved-images/curved.jpg')">
@@ -9,55 +11,48 @@
     <div class="container">
       <div class="row text-center">
         <div class="col-lg-7 mx-auto">
-          <h1 class="text-white">Create New Task</h1>
-          <p class="text-white opacity-8">Fill in the details to assign a new task to your team.</p>
+          <h1 class="text-white">Create New Worker</h1>
+          <p class="text-white opacity-8">Register a new team member and set their credentials.</p>
         </div>
       </div>
     </div>
   </div>
 </header>
-
 <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6 position-relative z-index-2">
   <div class="container py-4">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
         <form action="" method="post" novalidate>
           {% csrf_token %}
-
+          <h6 class="text-uppercase text-body text-xs font-weight-bolder">Account Information</h6>
+          <div class="row">
+            <div class="col-md-6">
+              {{ form.username|as_crispy_field }}
+            </div>
+            <div class="col-md-6">
+              {{ form.position|as_crispy_field }}
+            </div>
+          </div>
+          <h6 class="text-uppercase text-body text-xs font-weight-bolder mt-4">Personal Details</h6>
+          <div class="row">
+            <div class="col-md-6">
+              {{ form.first_name|as_crispy_field }}
+            </div>
+            <div class="col-md-6">
+              {{ form.last_name|as_crispy_field }}
+            </div>
+          </div>
+          <h6 class="text-uppercase text-body text-xs font-weight-bolder mt-4">Security</h6>
           <div class="row">
             <div class="col-md-12">
-              {{ form.name|as_crispy_field }}
+              {{ form.password1|as_crispy_field }}
+              {{ form.password2|as_crispy_field }}
             </div>
           </div>
-
-          <div class="row">
-            <div class="col-md-12">
-              {{ form.description|as_crispy_field }}
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6">
-              {{ form.deadline|as_crispy_field }}
-            </div>
-            <div class="col-md-6">
-              {{ form.task_type|as_crispy_field }}
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6">
-              {{ form.priority|as_crispy_field }}
-            </div>
-            <div class="col-md-6">
-              {{ form.assignees|as_crispy_field }}
-            </div>
-          </div>
-
-          <div class="row mt-4">
+          <div class="row mt-5">
             <div class="col-md-12 d-flex justify-content-between">
-              <a href="{% url 'tasks:task-list' %}" class="btn btn-light mb-0">Cancel</a>
-              <button type="submit" class="btn bg-gradient-primary mb-0">Create Task</button>
+              <a href="{% url 'tasks:worker-list' %}" class="btn btn-outline-secondary mb-0">Cancel</a>
+              <button type="submit" class="btn bg-gradient-primary mb-0">Register Worker</button>
             </div>
           </div>
         </form>

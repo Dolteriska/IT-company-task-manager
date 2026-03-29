@@ -9,8 +9,7 @@
     <div class="container">
       <div class="row text-center">
         <div class="col-lg-7 mx-auto">
-          <h1 class="text-white">Create New Task</h1>
-          <p class="text-white opacity-8">Fill in the details to assign a new task to your team.</p>
+          <h1 class="text-white">Create New Position</h1>
         </div>
       </div>
     </div>
@@ -29,35 +28,10 @@
               {{ form.name|as_crispy_field }}
             </div>
           </div>
-
-          <div class="row">
-            <div class="col-md-12">
-              {{ form.description|as_crispy_field }}
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6">
-              {{ form.deadline|as_crispy_field }}
-            </div>
-            <div class="col-md-6">
-              {{ form.task_type|as_crispy_field }}
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6">
-              {{ form.priority|as_crispy_field }}
-            </div>
-            <div class="col-md-6">
-              {{ form.assignees|as_crispy_field }}
-            </div>
-          </div>
-
           <div class="row mt-4">
             <div class="col-md-12 d-flex justify-content-between">
-              <a href="{% url 'tasks:task-list' %}" class="btn btn-light mb-0">Cancel</a>
-              <button type="submit" class="btn bg-gradient-primary mb-0">Create Task</button>
+              <a href="{% url 'tasks:position-list' %}" class="btn btn-light mb-0">Cancel</a>
+              <button type="submit" class="btn bg-gradient-primary mb-0">Create Position</button>
             </div>
           </div>
         </form>

@@ -5,90 +5,126 @@
 {% block body_class %} bg-gray-100 {% endblock body_class %}
 
 {% block content %}
+  <style>
+  .task-title-link {
+    transition: all 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .task-title-link:hover {
+    color: #cb0c9f !important;
+    text-decoration: underline !important;
+    transform: translateX(5px);
+  }
+</style>
 <header class="bg-gradient-primary">
   <div class="page-header min-vh-50 relative pt-10 pb-9" style="background-image: url('{{ ASSETS_ROOT }}/img/curved-images/curved.jpg')">
     <span class="mask bg-gradient-primary opacity-4"></span>
     <div class="container">
       <div class="row">
         <div class="col-lg-7 text-center mx-auto">
-          <h1 class="text-white ">Workers List</h1>
+          <h1 class="text-white ">List of workers</h1>
           <p class="lead text-white opacity-8">Your Workers and Roles.</p>
         </div>
       </div>
     </div>
   </div>
 </header>
-
 <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6 position-relative z-index-2">
   <div class="container-fluid py-4">
     <div class="row">
       <div class="col-12">
         <div class="card shadow-none border-0 mb-4">
-          <div class="card-header pb-0 px-3 border-0 d-flex justify-content-between align-items-center">
-            <h6 class="mb-0">Workers Table</h6>
-            {% if user.position.can_create_worker or user.is_superuser %}
-            <a href="#" class="btn bg-gradient-dark btn-sm mb-0">Add Worker</a>
-            {% endif %}
-          </div>
-          <div class="card-body px-0 pt-3 pb-2">
-            <div class="table-responsive p-0">
-              <table class="table align-items-center mb-0">
-
-                <thead>
+          <div class="card-header pb-0 px-3 border-0">
+  <div class="row align-items-center">
+    <div class="col-12 col-md-4">
+      <h6 class="mb-0">Workers Table</h6>
+    </div>
+    <div class="col-12 col-md-8 d-flex justify-content-md-end justify-content-start mt-3 mt-md-0">
+      <form method="get" class="me-3">
+        <div class="input-group input-group-outline flex-nowrap">
+          <span class="input-group-text text-body">
+            <i class="fas fa-search" aria-hidden="true"></i>
+          </span>
+          <input type="text"
+                 name="username"
+                 class="form-control form-control-sm"
+                 placeholder="Search worker..."
+                 value="{{ request.GET.username|default:'' }}">
+          <button type="submit" class="btn bg-gradient-primary btn-sm mb-0">Search</button>
+        </div>
+      </form>
+      {% if user.is_superuser or user.can_create_worker %}
+      <a href="{% url 'tasks:worker-create' %}" class="btn bg-gradient-dark btn-sm mb-0">
+        <i class="fas fa-plus me-2"></i>Create New Worker
+      </a>
+      {% endif %}
+    </div>
+  </div>
+            <div class="card-body px-0 pt-3 pb-2">
+              <div class="table-responsive p-0">
+                <table class="table align-items-center mb-0">
+                  <thead>
                   <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Username</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4">Username</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Email</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Position</th>
-                    <th class="text-secondary opacity-7"></th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                    {% if user.is_superuser or user.position.can_create_worker %}
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Edit</th>
+                    {% endif %}
                   </tr>
-                </thead>
-
-                <tbody>
+                  </thead>
+                  <tbody>
                   {% for worker in worker_list %}
-                  <tr>
-                    <td>
-                    <div class="d-flex px-3 py-1">
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="mb-0 text-sm">
-                          <a href="{% url 'tasks:worker-detail' pk=worker.pk %}" class="text-inherit">
-                            {{ worker.username }}
-                            </a>
-                          </h6>
+                    <tr>
+                      <td class="align-middle">
+                        <div class="d-flex align-items-center justify-content-start ps-4">
+                          <div class="d-flex flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm">
+                              <a href="{% url 'tasks:worker-detail' pk=worker.pk %}"
+                                 class="text-dark task-title-link d-inline-block">
+                                {{ worker.username }} ({{ worker.first_name|default:"NaN" }} {{ worker.last_name|default:"NaN" }})
+                              </a>
+                            </h6>
+                          </div>
                         </div>
-                      </div>
+                      </td>
+                      <td class="align-middle text-center">
+                        <p class="text-xs font-weight-bold mb-0">{{ worker.email|default:"No email" }}</p>
+                      </td>
+                      <td class="align-middle text-center text-sm">
+                        <span class="badge badge-sm bg-gradient-info">
+                          {{ worker.position|default:"Not set" }}
+                        </span>
+                      </td> <td class="align-middle text-center">
+                      {% if worker.is_online %}
+                        <span class="badge badge-sm bg-gradient-success">Online</span>
+                      {% else %}
+                        <span class="badge badge-sm bg-gradient-secondary opacity-6">Offline</span>
+                      {% endif %}
                     </td>
-                    <td>
-                      <p class="text-xs font-weight-bold mb-0">{{ worker.email }}</p>
-                    </td>
-                    <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm bg-gradient-info">
-                        {{ worker.position|default:"Not set" }}
-                      </span>
-                    </td>
-                    <td class="align-middle">
-                      {% if user.pk == worker.pk or user.position.can_create_worker or user.is_superuser %}
-                      <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                        Edit
+                      <td class="align-middle text-center">
+                        {% if user.is_superuser or user.position.can_create_worker %}
+                          <a href="{% url 'tasks:worker-update' pk=worker.pk %}"
+                             class="text-secondary font-weight-bold text-xs"
+                             data-toggle="tooltip"
+                             title="Edit user">
+                            Edit
+                          </a>
                         {% endif %}
-                      </a>
-                    </td>
-                  </tr>
-                  {% empty %}
-                  <tr>
-                    <td colspan="4" class="text-center py-5">
-                      <p class="text-secondary text-sm">There are no workers.</p>
-                      <a href="#" class="btn bg-gradient-dark btn-sm">Add First Worker</a>
-                    </td>
-                  </tr>
+                      </td>
+                    </tr>
                   {% endfor %}
-                </tbody>
+                  </tbody>
               </table>
-            </div>
+             </div>
+            {% include "includes/pagination.html" %}
           </div>
         </div>
-
       </div>
     </div>
   </div>
+</div>
 </div>
 {% endblock content %}

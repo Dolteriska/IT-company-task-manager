@@ -1,0 +1,76 @@
+{% extends 'layouts/base-presentation.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% block title %} Edit Task Type {% endblock title %}
+
+{% block content %}
+<header class="bg-gradient-primary">
+  <div class="page-header min-vh-40 relative pt-10 pb-9" style="background-image: url('{{ ASSETS_ROOT }}/img/curved-images/curved.jpg')">
+    <span class="mask bg-gradient-primary opacity-4"></span>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-7 text-center mx-auto">
+          <h1 class="text-white">Edit Type</h1>
+          <p class="lead text-white opacity-8">Modify or remove task categories.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container-fluid py-4">
+  <div class="row mt-n8 justify-content-center">
+    <div class="col-lg-6 col-md-8 col-12">
+      <div class="card blur shadow-blur z-index-2">
+        <div class="card-header pb-0 text-start">
+          <h4 class="font-weight-bolder">Task Type Details</h4>
+          <p class="mb-0">Update the name for this task category</p>
+        </div>
+        <div class="card-body">
+          <form action="" method="post" role="form">
+            {% csrf_token %}
+            <div class="mb-3">
+              {{ form|crispy }}
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mt-4">
+              <a href="{% url 'tasks:task-type-list' %}" class="btn btn-outline-secondary btn-sm mb-0">Back to List</a>
+
+              <div class="d-flex gap-2">
+                <button type="button" class="btn btn-outline-danger btn-sm mb-0" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                  Delete
+                </button>
+                <button type="submit" class="btn bg-gradient-primary btn-sm mb-0">Save Changes</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+        <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete the type <strong>"{{ object.name }}"</strong>?
+        This action cannot be undone.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+        <form action="{% url 'tasks:task-type-delete' pk=object.pk %}" method="post" style="display: inline;">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger btn-sm">Yes, Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

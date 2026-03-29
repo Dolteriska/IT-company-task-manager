@@ -1,11 +1,13 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils import timezone
 
 
 class Position(models.Model):
     name = models.CharField(max_length=255, unique=True)
     can_create_worker = models.BooleanField(default=False)
     can_edit_tasks = models.BooleanField(default=False)
+    can_create_positions = models.BooleanField(default=False)
 
     class Meta:
         ordering = ["name"]
@@ -22,6 +24,7 @@ class Worker(AbstractUser):
         blank=True,
         related_name="workers",
     )
+    last_seen = models.DateTimeField(null=True, blank=True)
 
     class Meta:
         verbose_name = "worker"
@@ -34,10 +37,16 @@ class Worker(AbstractUser):
             position = "no position"
         return (
             f"{self.username} "
-            f"({self.first_name}"
-            f" {self.last_name})"
-            f"{position}"
+            f"({self.first_name} "
+            f"{self.last_name})"
+            f" {position}"
         )
+
+    def is_online(self):
+        if self.last_seen:
+            return (self.last_seen > timezone.now()
+                    - timezone.timedelta(minutes=5))
+        return False
 
 
 class Priority(models.IntegerChoices):
