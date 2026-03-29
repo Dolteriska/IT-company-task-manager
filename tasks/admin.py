@@ -7,9 +7,8 @@ from .models import Worker, Task, TaskType, Position
 class WorkerAdmin(UserAdmin):
 
     list_display = UserAdmin.list_display + ("position",)
-    fieldsets = UserAdmin.fieldsets + (
-        ("Additional Info", {"fields": ("position",)}),
-    )
+    fieldsets = (UserAdmin.fieldsets
+                 + (("Additional Info", {"fields": ("position",)}),))
     add_fieldsets = UserAdmin.add_fieldsets + (
         ("Additional Info", {"fields": ("position",)}),
     )
@@ -23,7 +22,8 @@ class TaskTypeAdmin(admin.ModelAdmin):
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ("name", "deadline", "is_completed", "priority", "task_type")
+    list_display =\
+        ("name", "deadline", "is_completed", "priority", "task_type")
     list_filter = ("is_completed", "priority", "task_type")
     search_fields = ("name", "description")
     filter_horizontal = ("assignees",)
