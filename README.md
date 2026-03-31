@@ -1,4 +1,7 @@
 ﻿# IT-company-task-manager
+ Test User credentials:
+login: user
+password: user12345
 
  Database structure:
 <img width="1007" height="347" alt="IT Company Task Manager db structure" src="https://github.com/user-attachments/assets/b9572a6b-f368-4c05-b5b7-d8494bfda305" />
