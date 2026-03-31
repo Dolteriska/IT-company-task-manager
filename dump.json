@@ -1,0 +1,271 @@
+[
+{
+    "model": "tasks.position",
+    "pk": 1,
+    "fields": {
+        "name": "Back end engineer",
+        "can_create_worker": false,
+        "can_edit_tasks": false,
+        "can_create_positions": false
+    }
+},
+{
+    "model": "tasks.position",
+    "pk": 3,
+    "fields": {
+        "name": "Smm Manager",
+        "can_create_worker": false,
+        "can_edit_tasks": false,
+        "can_create_positions": false
+    }
+},
+{
+    "model": "tasks.position",
+    "pk": 5,
+    "fields": {
+        "name": "admin",
+        "can_create_worker": true,
+        "can_edit_tasks": true,
+        "can_create_positions": true
+    }
+},
+{
+    "model": "tasks.position",
+    "pk": 6,
+    "fields": {
+        "name": "Coordinator",
+        "can_create_worker": false,
+        "can_edit_tasks": true,
+        "can_create_positions": false
+    }
+},
+{
+    "model": "tasks.position",
+    "pk": 7,
+    "fields": {
+        "name": "Front end engineer",
+        "can_create_worker": false,
+        "can_edit_tasks": false,
+        "can_create_positions": false
+    }
+},
+{
+    "model": "tasks.worker",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$QTKZu3Vl1lHM8J6NtRkUk3$2XqLzfrvlsIzjOKtSc/NUOZpfYQ4AefvAlfAbWfnWWo=",
+        "last_login": "2026-03-29T14:19:58.064Z",
+        "is_superuser": false,
+        "username": "IlliaSavinov1",
+        "first_name": "Illia",
+        "last_name": "Savinov",
+        "email": "dolteriska@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-03-24T14:02:45Z",
+        "position": null,
+        "last_seen": "2026-03-29T14:29:09.241Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "tasks.worker",
+    "pk": 4,
+    "fields": {
+        "password": "!NNmC3VQgdbtVC22vAQ0Ezl5w3iJHqF6LCuqXeS7e",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "testuser1",
+        "first_name": "test",
+        "last_name": "user",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-03-25T14:00:02.986Z",
+        "position": 3,
+        "last_seen": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "tasks.worker",
+    "pk": 5,
+    "fields": {
+        "password": "!h77IDjPIcAvlEJTlK8jpOPXDoAni6j21lhtLYFxX",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "testuser2",
+        "first_name": "test2",
+        "last_name": "user2",
+        "email": "testuser@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-03-25T14:00:09.862Z",
+        "position": 3,
+        "last_seen": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "tasks.worker",
+    "pk": 7,
+    "fields": {
+        "password": "!uz8ySYavVjXsYTtNA2NNbGgYm0bGuEMpYDPN1BgX",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "testuser4",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-03-27T10:13:58.102Z",
+        "position": 1,
+        "last_seen": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "tasks.worker",
+    "pk": 9,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$KU8yzHTewtmOJCV30s1Sq6$bXGNW4sMvkrYRnRrdwLrgi/cZSndOmYvMH288wc//4Y=",
+        "last_login": "2026-03-31T09:35:02.389Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "admin_user@gmail.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2026-03-29T13:55:53.472Z",
+        "position": 5,
+        "last_seen": "2026-03-31T10:05:58.392Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "tasks.worker",
+    "pk": 10,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$mVwTUWXlXKjYaOFjWI3f3h$AltilIqzeOx1W44uz3XVfr19H18vHSdt+eDiZiNmY6Q=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "testuser15",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-03-29T14:16:41.803Z",
+        "position": 3,
+        "last_seen": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "tasks.tasktype",
+    "pk": 1,
+    "fields": {
+        "name": "Bug fixing"
+    }
+},
+{
+    "model": "tasks.tasktype",
+    "pk": 2,
+    "fields": {
+        "name": "fixing fonts"
+    }
+},
+{
+    "model": "tasks.tasktype",
+    "pk": 4,
+    "fields": {
+        "name": "cringe detection"
+    }
+},
+{
+    "model": "tasks.task",
+    "pk": 1,
+    "fields": {
+        "name": "Bug fix 1.0.1",
+        "description": "text fix bugs",
+        "deadline": "2026-03-23T15:42:59Z",
+        "is_completed": false,
+        "priority": 4,
+        "task_type": 1,
+        "assignees": [
+            2,
+            4,
+            5
+        ]
+    }
+},
+{
+    "model": "tasks.task",
+    "pk": 2,
+    "fields": {
+        "name": "tesfix1",
+        "description": "111",
+        "deadline": "2026-03-27T10:23:55Z",
+        "is_completed": false,
+        "priority": 2,
+        "task_type": 1,
+        "assignees": [
+            2
+        ]
+    }
+},
+{
+    "model": "tasks.task",
+    "pk": 3,
+    "fields": {
+        "name": "Bug fix 1.0.2",
+        "description": "1111",
+        "deadline": "2026-03-27T10:24:08Z",
+        "is_completed": false,
+        "priority": 3,
+        "task_type": 1,
+        "assignees": []
+    }
+},
+{
+    "model": "tasks.task",
+    "pk": 4,
+    "fields": {
+        "name": "Bug fix 1.0.3",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur mi sapien, bibendum ut cursus nec, feugiat condimentum felis. Praesent ac metus sagittis, rutrum est ut, suscipit est. Fusce mattis quam id purus dictum, vitae luctus purus varius. Aliquam non vulputate nunc. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla euismod vehicula sem, et mattis dolor maximus eget. Aliquam ex arcu, sodales eget ipsum iaculis, viverra lobortis justo. Sed porttitor ipsum eget neque tempor tempus.\r\n\r\nNam sodales eros malesuada gravida imperdiet. Etiam a ex id diam hendrerit egestas. Praesent volutpat turpis sed nisl cursus, a ultricies nunc viverra. Vivamus vel vehicula risus. Nullam vel facilisis lacus. Integer vel libero cursus, maximus elit eget, tincidunt est. Morbi vitae purus feugiat, finibus felis et, posuere ex. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Curabitur venenatis convallis elit, vel semper leo porta ac. Proin ut interdum mauris. Nam iaculis libero justo, quis fringilla felis imperdiet ut. Fusce id lorem ut leo pulvinar condimentum eu sed purus. Quisque tempus, purus eget pharetra porttitor, eros ligula bibendum eros, eget gravida nisi tellus semper risus. Integer aliquam, metus at eleifend ultricies, ex nulla volutpat nibh, non viverra ante enim quis nunc. Suspendisse tortor orci, tempor auctor porttitor ac, congue sit amet mauris. Praesent sit amet euismod libero.",
+        "deadline": "2026-03-27T10:24:24Z",
+        "is_completed": false,
+        "priority": 1,
+        "task_type": 1,
+        "assignees": [
+            2,
+            7
+        ]
+    }
+},
+{
+    "model": "tasks.task",
+    "pk": 5,
+    "fields": {
+        "name": "new task",
+        "description": "no description",
+        "deadline": "2026-03-27T09:27:00Z",
+        "is_completed": false,
+        "priority": 4,
+        "task_type": 1,
+        "assignees": [
+            2,
+            4,
+            5
+        ]
+    }
+}
+]
