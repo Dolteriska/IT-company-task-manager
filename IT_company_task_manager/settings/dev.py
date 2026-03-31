@@ -1,9 +1,9 @@
 from IT_company_task_manager.settings.base import *
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
-DEBUG = False
 
-ALLOWED_HOSTS = []
+DEBUG = True
+
+ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
 
 # Database
@@ -16,3 +16,6 @@ DATABASES = {
     }
 }
 
+INSTALLED_APPS += ["debug_toolbar"]
+MIDDLEWARE = ["debug_toolbar.middleware.DebugToolbarMiddleware"] + MIDDLEWARE
+INTERNAL_IPS = ["127.0.0.1"]
